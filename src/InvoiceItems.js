@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function InvoiceItems() {
+function InvoiceItems({ handleListItems }) {
   let deleteArray = [];
   const [itemList, setItemList] = useState([]);
   const [item, setItem] = useState({
@@ -13,8 +13,17 @@ function InvoiceItems() {
     amount: "",
   });
 
+  const handleItemSubmit = (e) => {
+    setItemList((oldItemList) => [...oldItemList, item]);
+    setItem((olditem) => ({
+      srno: olditem.srno + 1,
+      desc: "",
+      sac: "",
+      amount: "",
+    }));
+    handleListItems(itemList);
+  };
   const deleteItem = (deleteSrno) => {
-    console.log(deleteSrno);
     deleteArray = [...itemList];
     for (let i = 0; i < deleteArray.length; i++) {
       const element = deleteArray[i];
@@ -22,9 +31,7 @@ function InvoiceItems() {
         deleteArray.splice(i, 1);
       }
     }
-    console.log(deleteArray);
     setItemList(deleteArray);
-    console.log(itemList);
   };
 
   const displayItems = Object.keys(itemList).map((item, idx) => (
@@ -42,16 +49,6 @@ function InvoiceItems() {
       </div>
     </li>
   ));
-
-  const handleItemSubmit = (e) => {
-    setItemList((oldItemList) => [...oldItemList, item]);
-    setItem((olditem) => ({
-      srno: olditem.srno + 1,
-      desc: "",
-      sac: "",
-      amount: "",
-    }));
-  };
 
   return (
     <>

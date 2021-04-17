@@ -12,9 +12,9 @@ function App() {
     mobile: "",
   });
 
-  // useEffect(() => {
-  //   console.log(formData);
-  // });
+  const handleListItems = (listitems) => {
+    console.log(listitems);
+  };
 
   return (
     <div className="app">
@@ -79,8 +79,8 @@ function App() {
           </Form.Group>
         </div>
 
-        <InvoiceItems />
-
+        <InvoiceItems handleListItems={handleListItems} />
+        <br />
         <Button variant="success" type="submit">
           Submit
         </Button>
