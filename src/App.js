@@ -10,11 +10,21 @@ function App() {
     invNumber: "",
     billTo: "",
     mobile: "",
+    listItems: [],
+    totals: {},
   });
 
   const handleListItems = (listitems) => {
-    console.log(listitems);
+    setFormData({ ...formData, listItems: listitems });
   };
+
+  const handleTotal = (totals) => {
+    setFormData({ ...formData, totals: totals });
+  };
+
+  useEffect(() => {
+    console.log(formData);
+  });
 
   return (
     <div className="app">
@@ -79,7 +89,10 @@ function App() {
           </Form.Group>
         </div>
 
-        <InvoiceItems handleListItems={handleListItems} />
+        <InvoiceItems
+          handleListItems={handleListItems}
+          handleTotal={handleTotal}
+        />
         <br />
         <Button variant="success" type="submit">
           Submit

@@ -2,27 +2,45 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
-function InvoiceItems({ handleListItems }) {
+function InvoiceItems({ handleListItems, handleTotal }) {
   let deleteArray = [];
   const [itemList, setItemList] = useState([]);
   const [item, setItem] = useState({
     srno: 1,
-    desc: "",
-    sac: "",
-    amount: "",
+    desc: String,
+    sac: String,
+    amount: Number,
   });
+  const [discount, setDiscount] = useState(0);
+  const [advance, setAdvance] = useState(0);
+  const [subTotal, setSubTotal] = useState(parseFloat(0));
 
-  const handleItemSubmit = (e) => {
+  const handleItemSubmit = () => {
     setItemList((oldItemList) => [...oldItemList, item]);
+    setSubTotal((oldSubTotal) => oldSubTotal + parseFloat(item.amount));
     setItem((olditem) => ({
       srno: olditem.srno + 1,
       desc: "",
       sac: "",
       amount: "",
     }));
-    handleListItems(itemList);
   };
+
+  const handleUpdate = async () => {
+    await handleListItems(itemList);
+    const discountAmount = (subTotal * discount) / 100;
+    const finalAmount = subTotal - discountAmount - advance;
+    await handleTotal({
+      subTotal: subTotal,
+      advance: advance,
+      discount: discount,
+      discountAmount: discountAmount,
+      grandTotal: finalAmount,
+    });
+  };
+
   const deleteItem = (deleteSrno) => {
     deleteArray = [...itemList];
     for (let i = 0; i < deleteArray.length; i++) {
@@ -51,7 +69,46 @@ function InvoiceItems({ handleListItems }) {
   ));
 
   return (
-    <>
+    <div className="border border-info rounded">
+      <div className="row col-md-4">
+        <InputGroup className="mb-3">
+          <Form.Label>Discount? :</Form.Label>
+          <Form.Control
+            className="ml-3"
+            type="text"
+            name="discount"
+            placeholder="Discount"
+            value={discount}
+            onChange={(e) => setDiscount(e.target.value)}
+          />
+          <InputGroup.Append>
+            <InputGroup.Text id="basic-addon2">%</InputGroup.Text>
+          </InputGroup.Append>
+        </InputGroup>
+      </div>
+      <div className="row col-md-4">
+        <InputGroup className="mb-3">
+          <Form.Label>Advance? :</Form.Label>
+          <InputGroup.Prepend className="ml-3">
+            <InputGroup.Text id="basic-addon2">₹</InputGroup.Text>
+          </InputGroup.Prepend>
+          <Form.Control
+            type="text"
+            name="advance"
+            placeholder="Advance"
+            value={advance}
+            onChange={(e) => setAdvance(e.target.value)}
+          />
+        </InputGroup>
+      </div>
+      <div>
+        <p>
+          Sub Total: {subTotal} <br />
+          Advance: {advance} <br />
+          Discount: {(subTotal * discount) / 100} <br />
+          Total: {subTotal - (subTotal * discount) / 100 - advance} <br />
+        </p>
+      </div>
       <ul className="list-group list-unstyled">
         <li>
           <div className="row h5">
@@ -100,7 +157,10 @@ function InvoiceItems({ handleListItems }) {
           </Form.Group>
         </div>
         <div className="col">
-          <Form.Group>
+          <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon2">₹</InputGroup.Text>
+            </InputGroup.Prepend>
             <Form.Control
               type="text"
               name="amount"
@@ -108,17 +168,24 @@ function InvoiceItems({ handleListItems }) {
               value={item.amount}
               onChange={(e) => setItem({ ...item, amount: e.target.value })}
             />
-          </Form.Group>
+          </InputGroup>
         </div>
       </div>
-      <Button
-        variant="outline-info"
-        type="button"
-        onClick={() => handleItemSubmit()}
-      >
-        Add Item
+      <div className="m-auto w-50">
+        <Button
+          variant="outline-info"
+          type="button"
+          onClick={() => handleItemSubmit()}
+        >
+          Add Item
+        </Button>
+      </div>
+
+      <br />
+      <Button variant="info" type="button" onClick={() => handleUpdate()}>
+        Update All Items
       </Button>
-    </>
+    </div>
   );
 }
 
