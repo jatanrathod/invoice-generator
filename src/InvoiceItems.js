@@ -13,8 +13,8 @@ function InvoiceItems({ handleListItems, handleTotal }) {
     sac: String,
     amount: Number,
   });
-  const [discount, setDiscount] = useState(0);
-  const [advance, setAdvance] = useState(0);
+  const [discount, setDiscount] = useState(parseFloat(0));
+  const [advance, setAdvance] = useState(parseFloat(0));
   const [subTotal, setSubTotal] = useState(parseFloat(0));
 
   const handleItemSubmit = () => {
@@ -30,26 +30,31 @@ function InvoiceItems({ handleListItems, handleTotal }) {
 
   const handleUpdate = async () => {
     await handleListItems(itemList);
-    const discountAmount = (subTotal * discount) / 100;
-    const finalAmount = subTotal - discountAmount - advance;
+    const discountAmount = (parseFloat(subTotal) * parseFloat(discount)) / 100;
+    const finalAmount =
+      parseFloat(subTotal) - parseFloat(discountAmount) - parseFloat(advance);
     await handleTotal({
-      subTotal: subTotal,
-      advance: advance,
-      discount: discount,
-      discountAmount: discountAmount,
-      grandTotal: finalAmount,
+      subTotal: parseFloat(subTotal),
+      advance: parseFloat(advance),
+      discount: parseFloat(discount),
+      discountAmount: parseFloat(discountAmount),
+      grandTotal: parseFloat(finalAmount),
     });
   };
 
   const deleteItem = (deleteSrno) => {
     deleteArray = [...itemList];
+    let deletedItem = {};
     for (let i = 0; i < deleteArray.length; i++) {
       const element = deleteArray[i];
       if (element.srno == deleteSrno) {
-        deleteArray.splice(i, 1);
+        deletedItem = deleteArray.splice(i, 1);
       }
     }
     setItemList(deleteArray);
+    setSubTotal(
+      (oldSubTotal) => oldSubTotal - parseFloat(deletedItem[0].amount)
+    );
   };
 
   const displayItems = Object.keys(itemList).map((item, idx) => (
@@ -103,10 +108,11 @@ function InvoiceItems({ handleListItems, handleTotal }) {
       </div>
       <div>
         <p>
-          Sub Total: {subTotal} <br />
+          Sub Total: {subTotal.toFixed(2)} <br />
           Advance: {advance} <br />
-          Discount: {(subTotal * discount) / 100} <br />
-          Total: {subTotal - (subTotal * discount) / 100 - advance} <br />
+          Discount: {((subTotal * discount) / 100).toFixed(2)} <br />
+          Total: {(subTotal - (subTotal * discount) / 100 - advance).toFixed(2)}
+          <br />
         </p>
       </div>
       <ul className="list-group list-unstyled">
@@ -166,7 +172,9 @@ function InvoiceItems({ handleListItems, handleTotal }) {
               name="amount"
               placeholder="Amount"
               value={item.amount}
-              onChange={(e) => setItem({ ...item, amount: e.target.value })}
+              onChange={(e) =>
+                setItem({ ...item, amount: parseFloat(e.target.value) })
+              }
             />
           </InputGroup>
         </div>
