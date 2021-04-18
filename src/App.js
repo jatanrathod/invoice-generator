@@ -11,15 +11,11 @@ function App() {
     billTo: "",
     mobile: "",
     listItems: [],
-    totals: {},
+    panNumber: "",
   });
 
-  const handleListItems = (listitems) => {
-    setFormData({ ...formData, listItems: listitems });
-  };
-
   const handleTotal = (totals) => {
-    setFormData({ ...formData, totals: totals });
+    setFormData({ ...formData, ...totals });
   };
 
   useEffect(() => {
@@ -27,7 +23,7 @@ function App() {
   });
 
   return (
-    <div className="app">
+    <div className="app m-2">
       <Form>
         <div className="row col-md-4">
           <Form.Group controlId="invoice_date">
@@ -89,14 +85,27 @@ function App() {
           </Form.Group>
         </div>
 
-        <InvoiceItems
-          handleListItems={handleListItems}
-          handleTotal={handleTotal}
-        />
+        <InvoiceItems handleTotal={handleTotal} />
         <br />
-        <Button variant="success" type="submit">
-          Submit
-        </Button>
+        <div className="col-6 p-0">
+          <Form.Group controlId="pan_number">
+            <Form.Label>PAN Card Number:</Form.Label>
+            <Form.Control
+              type="text"
+              name="pan_number"
+              placeholder="PAN Card Number"
+              value={formData.panNumber}
+              onChange={(e) =>
+                setFormData({ ...formData, panNumber: e.target.value })
+              }
+            />
+          </Form.Group>
+        </div>
+        <div className="text-center">
+          <Button className="btn-lg btn-block" variant="success" type="submit">
+            Submit
+          </Button>
+        </div>
       </Form>
     </div>
   );

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-function InvoiceItems({ handleListItems, handleTotal }) {
+function InvoiceItems({ handleTotal }) {
   let deleteArray = [];
   const [itemList, setItemList] = useState([]);
   const [item, setItem] = useState({
@@ -29,7 +29,6 @@ function InvoiceItems({ handleListItems, handleTotal }) {
   };
 
   const handleUpdate = async () => {
-    await handleListItems(itemList);
     const discountAmount = (parseFloat(subTotal) * parseFloat(discount)) / 100;
     const finalAmount =
       parseFloat(subTotal) - parseFloat(discountAmount) - parseFloat(advance);
@@ -39,6 +38,7 @@ function InvoiceItems({ handleListItems, handleTotal }) {
       discount: parseFloat(discount),
       discountAmount: parseFloat(discountAmount),
       grandTotal: parseFloat(finalAmount),
+      itemList: itemList,
     });
   };
 
@@ -74,7 +74,7 @@ function InvoiceItems({ handleListItems, handleTotal }) {
   ));
 
   return (
-    <div className="border border-info rounded">
+    <div className="border border-info rounded shadow-lg m-2 p-2">
       <div className="row col-md-4">
         <InputGroup className="mb-3">
           <Form.Label>Discount? :</Form.Label>
@@ -109,7 +109,7 @@ function InvoiceItems({ handleListItems, handleTotal }) {
       <div>
         <p>
           Sub Total: {subTotal.toFixed(2)} <br />
-          Advance: {advance} <br />
+          Advance: {parseFloat(advance).toFixed(2)} <br />
           Discount: {((subTotal * discount) / 100).toFixed(2)} <br />
           Total: {(subTotal - (subTotal * discount) / 100 - advance).toFixed(2)}
           <br />
@@ -179,8 +179,9 @@ function InvoiceItems({ handleListItems, handleTotal }) {
           </InputGroup>
         </div>
       </div>
-      <div className="m-auto w-50">
+      <div className="text-center">
         <Button
+          className="btn-sm"
           variant="outline-info"
           type="button"
           onClick={() => handleItemSubmit()}
@@ -190,9 +191,16 @@ function InvoiceItems({ handleListItems, handleTotal }) {
       </div>
 
       <br />
-      <Button variant="info" type="button" onClick={() => handleUpdate()}>
-        Update All Items
-      </Button>
+      <div className="text-right">
+        <Button
+          className="btn-lg"
+          variant="info"
+          type="button"
+          onClick={() => handleUpdate()}
+        >
+          Update All Items
+        </Button>
+      </div>
     </div>
   );
 }
