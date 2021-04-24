@@ -47,7 +47,7 @@ function InvoiceItems({ handleTotal }) {
     let deletedItem = {};
     for (let i = 0; i < deleteArray.length; i++) {
       const element = deleteArray[i];
-      if (element.srno == deleteSrno) {
+      if (element.srno === deleteSrno) {
         deletedItem = deleteArray.splice(i, 1);
       }
     }
