@@ -21,11 +21,12 @@ function Invoice({ invoiceData }) {
           <td>{srno}</td>
           <td>{desc}</td>
           <td>{sac}</td>
-          <td>{amount}</td>
+          <td className="text-right">{amount.toFixed(2)}</td>
         </tr>
       );
     });
   };
+  console.log(typeof invoiceData.invDate);
 
   return (
     <div className="m-5">
@@ -82,10 +83,10 @@ function Invoice({ invoiceData }) {
       <Table bordered size="sm">
         <thead>
           <tr>
-            <th>Sr. No.</th>
-            <th>Description</th>
-            <th>SAC</th>
-            <th>Amount(₹)</th>
+            <th className="text-center">Sr. No.</th>
+            <th className="text-center">Description</th>
+            <th className="text-center">SAC</th>
+            <th className="text-center">Amount(₹)</th>
           </tr>
         </thead>
         <tbody>
@@ -94,25 +95,33 @@ function Invoice({ invoiceData }) {
             <td colSpan="3" className="text-right">
               <strong>Sub Total </strong>
             </td>
-            <td>{invoiceData.subTotal}</td>
+            <td className="text-right">
+              <b>{invoiceData.subTotal.toFixed(2)}</b>
+            </td>
           </tr>
           <tr>
             <td colSpan="3" className="text-right">
               <strong>Discount ({invoiceData.discount}%)</strong>
             </td>
-            <td>{invoiceData.discountAmount}</td>
+            <td className="text-right">
+              <b>{invoiceData.discountAmount.toFixed(2)}</b>
+            </td>
           </tr>
           <tr>
             <td colSpan="3" className="text-right">
               <strong>Advance </strong>
             </td>
-            <td>{invoiceData.advance}</td>
+            <td className="text-right">
+              <b>{invoiceData.advance.toFixed(2)}</b>
+            </td>
           </tr>
           <tr>
             <td colSpan="3" className="text-right">
               <strong>Total </strong>
             </td>
-            <td>{invoiceData.grandTotal}</td>
+            <td className="text-right">
+              <b>{invoiceData.grandTotal.toFixed(2)}</b>
+            </td>
           </tr>
         </tbody>
       </Table>

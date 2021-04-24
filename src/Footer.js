@@ -40,6 +40,22 @@ function Footer() {
           </tr>
         </tbody>
       </table>
+
+      <hr className="line-footer" />
+      <div>
+        1) Issue cheque /D.D/P.O. in favour of{" "}
+        <strong>"Savan Natwarlal Rathod"</strong>.
+      </div>
+      <div>
+        2) The Above charges do not include any scrutiny / verification fees.
+      </div>
+      <div>
+        3) Any Changes if require to be intimates to us in writing within
+        reasonable days from receipt of this will otherwise assignment will be
+        turned as satisfactorily over.
+      </div>
+      <br />
+      <h4>Thanking You!!!</h4>
     </div>
   );
 }
