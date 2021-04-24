@@ -20,7 +20,6 @@ function InputForm({ passInputData }) {
   };
 
   const handleSubmit = () => {
-    console.log("Form Submit: " + formData);
     passInputData(formData);
   };
 

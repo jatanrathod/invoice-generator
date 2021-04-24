@@ -1,13 +1,30 @@
 import React from "react";
 import Logo from "./img/logo.png";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Table from "react-bootstrap/Table";
 import "./css/invoice.css";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import EmailIcon from "@material-ui/icons/Email";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
+import AmountInWords from "./AmountInWords";
 
 function Invoice({ invoiceData }) {
+  const renderTableData = () => {
+    return invoiceData.itemList.map((item) => {
+      const { srno, desc, sac, amount } = item;
+      return (
+        <tr key={srno}>
+          <td>{srno}</td>
+          <td>{desc}</td>
+          <td>{sac}</td>
+          <td>{amount}</td>
+        </tr>
+      );
+    });
+  };
+
   return (
     <div className="m-5">
       <div className="text-center">
@@ -35,12 +52,70 @@ function Invoice({ invoiceData }) {
       </div>
       <div className="row">
         <div className="col">
-          <p>Invoice Date: {invoiceData.invDate}</p>
+          <p>
+            <strong>Invoice Date: </strong>
+            {invoiceData.invDate}
+          </p>
         </div>
         <div className="col text-right">
-          <p>Invoice Number: {invoiceData.invNumber}</p>
+          <p>
+            <strong>Invoice Number: </strong>
+            {invoiceData.invNumber}
+          </p>
         </div>
       </div>
+      <div>
+        <p>
+          <strong>Bill To: </strong>Mr./Mrs./M/s. {invoiceData.billTo}
+        </p>
+      </div>
+      <div>
+        <p>
+          <strong>Mobile Number:</strong> {invoiceData.mobile}
+        </p>
+      </div>
+
+      {/* Invoice Table */}
+
+      <Table bordered size="sm">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Description</th>
+            <th>SAC</th>
+            <th>Amount(₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {renderTableData()}
+          <tr>
+            <td colSpan="3" className="text-right">
+              <strong>Sub Total </strong>
+            </td>
+            <td>{invoiceData.subTotal}</td>
+          </tr>
+          <tr>
+            <td colSpan="3" className="text-right">
+              <strong>Discount ({invoiceData.discount}%)</strong>
+            </td>
+            <td>{invoiceData.discountAmount}</td>
+          </tr>
+          <tr>
+            <td colSpan="3" className="text-right">
+              <strong>Advance </strong>
+            </td>
+            <td>{invoiceData.advance}</td>
+          </tr>
+          <tr>
+            <td colSpan="3" className="text-right">
+              <strong>Total </strong>
+            </td>
+            <td>{invoiceData.grandTotal}</td>
+          </tr>
+        </tbody>
+      </Table>
+
+      <AmountInWords invAmount={invoiceData.grandTotal} />
     </div>
   );
 }
