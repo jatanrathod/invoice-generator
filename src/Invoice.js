@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "./img/logo.png";
+import Sign from "./img/sign.jpg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Table from "react-bootstrap/Table";
 import "./css/invoice.css";
@@ -9,6 +10,7 @@ import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import AmountInWords from "./AmountInWords";
+import Footer from "./Footer";
 
 function Invoice({ invoiceData }) {
   const renderTableData = () => {
@@ -116,6 +118,26 @@ function Invoice({ invoiceData }) {
       </Table>
 
       <AmountInWords invAmount={invoiceData.grandTotal} />
+      <br />
+      <div className="row">
+        <div className="col">
+          <p>
+            <strong>PAN No. : </strong>
+            {invoiceData.panNumber}
+          </p>
+        </div>
+        <div className="col text-right">
+          <p>
+            <strong>From TAB Consultants</strong>
+          </p>
+          <img src={Sign} alt="sign" width="170" height="60" />
+          <p>
+            <strong>Partner</strong>
+          </p>
+        </div>
+      </div>
+
+      <Footer />
     </div>
   );
 }
