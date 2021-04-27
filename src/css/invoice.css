@@ -4,3 +4,29 @@
   color: gray;
   background-color: gray;
 }
+
+#inv-table,
+#th,
+#td {
+  border: 1px solid black;
+}
+
+#inv-table {
+  width: 100%;
+}
+
+#col1 {
+  width: 5%;
+}
+
+#col2 {
+  width: 55%;
+}
+
+#col3 {
+  width: 20%;
+}
+
+#col4 {
+  width: 20%;
+}
