@@ -14,7 +14,7 @@ import Footer from "./Footer";
 
 function Invoice({ invoiceData }) {
   const renderTableData = () => {
-    return invoiceData.itemList.map((item) => {
+    return invoiceData.itemList?.map((item) => {
       const { srno, desc, sac, amount } = item;
       return (
         <tr key={srno}>
@@ -115,7 +115,7 @@ function Invoice({ invoiceData }) {
               <strong>Sub Total </strong>
             </td>
             <td id="td" className="text-right">
-              <b>{invoiceData.subTotal.toFixed(2)}</b>
+              <b>{invoiceData.subTotal?.toFixed(2)}</b>
             </td>
           </tr>
           <tr>
@@ -123,7 +123,7 @@ function Invoice({ invoiceData }) {
               <strong>Discount ({invoiceData.discount}%)</strong>
             </td>
             <td id="td" className="text-right">
-              <b>{invoiceData.discountAmount.toFixed(2)}</b>
+              <b>{invoiceData.discountAmount?.toFixed(2)}</b>
             </td>
           </tr>
           <tr>
@@ -131,7 +131,7 @@ function Invoice({ invoiceData }) {
               <strong>Advance </strong>
             </td>
             <td className="text-right">
-              <b>{invoiceData.advance.toFixed(2)}</b>
+              <b>{invoiceData.advance?.toFixed(2)}</b>
             </td>
           </tr>
           <tr>
@@ -139,13 +139,14 @@ function Invoice({ invoiceData }) {
               <strong>Total </strong>
             </td>
             <td id="td" className="text-right">
-              <b>{invoiceData.grandTotal.toFixed(2)}</b>
+              <b>{invoiceData.grandTotal?.toFixed(2)}</b>
             </td>
           </tr>
         </tbody>
       </table>
-
-      <AmountInWords invAmount={invoiceData.grandTotal} />
+      {invoiceData.grandTotal && (
+        <AmountInWords invAmount={invoiceData.grandTotal} />
+      )}
       <br />
       <div className="row">
         <div className="col">

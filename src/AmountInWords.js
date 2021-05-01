@@ -10,7 +10,7 @@ function AmountInWords({ invAmount }) {
   }, []);
 
   function Rs(amount) {
-    var words = new Array();
+    var words = [];
     words[0] = "Zero";
     words[1] = "One";
     words[2] = "Two";
@@ -39,22 +39,22 @@ function AmountInWords({ invAmount }) {
     words[70] = "Seventy";
     words[80] = "Eighty";
     words[90] = "Ninety";
-    var op;
+    var i, j;
     amount = amount.toString();
     var atemp = amount.split(".");
     var number = atemp[0].split(",").join("");
     var n_length = number.length;
     var words_string = "";
     if (n_length <= 9) {
-      var n_array = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0);
-      var received_n_array = new Array();
-      for (var i = 0; i < n_length; i++) {
+      var n_array = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+      var received_n_array = [];
+      for (i = 0; i < n_length; i++) {
         received_n_array[i] = number.substr(i, 1);
       }
-      for (var i = 9 - n_length, j = 0; i < 9; i++, j++) {
+      for (i = 9 - n_length, j = 0; i < 9; i++, j++) {
         n_array[i] = received_n_array[j];
       }
-      for (var i = 0, j = 1; i < 9; i++, j++) {
+      for (i = 0, j = 1; i < 9; i++, j++) {
         if (i == 0 || i == 2 || i == 4 || i == 7) {
           if (n_array[i] == 1) {
             n_array[j] = 10 + parseInt(n_array[j]);
@@ -63,7 +63,7 @@ function AmountInWords({ invAmount }) {
         }
       }
       var value = "";
-      for (var i = 0; i < 9; i++) {
+      for (i = 0; i < 9; i++) {
         if (i == 0 || i == 2 || i == 4 || i == 7) {
           value = n_array[i] * 10;
         } else {
@@ -116,8 +116,6 @@ function AmountInWords({ invAmount }) {
     if (nums.length == 2) {
       if (nums[0] <= 9) {
         nums[0] = nums[0] * 10;
-      } else {
-        nums[0] = nums[0];
       }
       var fraction = Rs(nums[1]);
       if (whole == "" && fraction == "") {

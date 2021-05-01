@@ -26,35 +26,54 @@ function InputForm({ passInputData }) {
   return (
     <div className="app m-2">
       <Form onSubmit={handleSubmit}>
-        <div className="row col-md-4">
-          <Form.Group controlId="invoice_date">
-            <Form.Label>Invoice Date:</Form.Label>
-            <Form.Control
-              type="date"
-              name="invoice_date"
-              placeholder="Invoice Date"
-              value={formData.invDate}
-              onChange={(e) =>
-                setFormData({ ...formData, invDate: e.target.value })
-              }
-            />
-          </Form.Group>
+        <div className="row">
+          <div className="col-md-2">
+            <Form.Group controlId="invoice_date">
+              <Form.Label>Invoice Date:</Form.Label>
+              <Form.Control
+                type="date"
+                name="invoice_date"
+                placeholder="Invoice Date"
+                value={formData.invDate}
+                onChange={(e) =>
+                  setFormData({ ...formData, invDate: e.target.value })
+                }
+              />
+            </Form.Group>
+          </div>
+          <div className="col-md-4">
+            <Form.Group controlId="invoice_number">
+              <Form.Label>Invoice Number:</Form.Label>
+              <Form.Control
+                type="text"
+                name="invoice_number"
+                placeholder="Invoice Number"
+                value={formData.invNumber}
+                onChange={(e) =>
+                  setFormData({ ...formData, invNumber: e.target.value })
+                }
+              />
+            </Form.Group>
+          </div>
+          <div className="col-md-4">
+            <Form.Group controlId="mobile_number">
+              <Form.Label>Mobile Number:</Form.Label>
+              <Form.Control
+                type="text"
+                name="mobile_number"
+                placeholder="Mobile Number"
+                value={formData.mobile}
+                onChange={(e) =>
+                  setFormData({ ...formData, mobile: e.target.value })
+                }
+              />
+            </Form.Group>
+          </div>
         </div>
 
-        <div className="col-6 p-0">
-          <Form.Group controlId="invoice_number">
-            <Form.Label>Invoice Number:</Form.Label>
-            <Form.Control
-              type="text"
-              name="invoice_number"
-              placeholder="Invoice Number"
-              value={formData.invNumber}
-              onChange={(e) =>
-                setFormData({ ...formData, invNumber: e.target.value })
-              }
-            />
-          </Form.Group>
-        </div>
+        {/* <div className="col-6 p-0">
+
+        </div> */}
 
         <div className="col-6 p-0">
           <Form.Group controlId="bill_to">
@@ -71,37 +90,10 @@ function InputForm({ passInputData }) {
           </Form.Group>
         </div>
 
-        <div className="col-6 p-0">
-          <Form.Group controlId="mobile_number">
-            <Form.Label>Mobile Number:</Form.Label>
-            <Form.Control
-              type="text"
-              name="mobile_number"
-              placeholder="Mobile Number"
-              value={formData.mobile}
-              onChange={(e) =>
-                setFormData({ ...formData, mobile: e.target.value })
-              }
-            />
-          </Form.Group>
-        </div>
+        <div className="col-6 p-0"></div>
 
         <InvoiceItems handleTotal={handleTotal} />
         <br />
-        <div className="col-6 p-0">
-          <Form.Group controlId="pan_number">
-            <Form.Label>PAN Card Number:</Form.Label>
-            <Form.Control
-              type="text"
-              name="pan_number"
-              placeholder="PAN Card Number"
-              value={formData.panNumber}
-              onChange={(e) =>
-                setFormData({ ...formData, panNumber: e.target.value })
-              }
-            />
-          </Form.Group>
-        </div>
         <div className="text-center">
           <Link to="/invoice">
             <Button
