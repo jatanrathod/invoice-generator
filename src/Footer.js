@@ -1,4 +1,5 @@
 import React from "react";
+import data from "./json/data.json";
 import "./css/footer.css";
 
 function Footer() {
@@ -14,28 +15,28 @@ function Footer() {
         <tbody>
           <tr>
             <th scope="row">Name:</th>
-            <td>Savan Natwarlal Rathod</td>
-            <td className="upi">7666623210@upi</td>
+            <td>{data.name}</td>
+            <td className="upi">{data.upi[0]}</td>
           </tr>
           <tr>
             <th scope="row">Bank Name:</th>
-            <td>Bank of Baroda</td>
-            <td className="upi">8286383908@upi</td>
+            <td>{data.bankName}</td>
+            <td className="upi">{data.upi[1]}</td>
           </tr>
 
           <tr>
             <th scope="row">Branch:</th>
-            <td>Dahisar East, Mumbai</td>
+            <td>{data.branch}</td>
             <td></td>
           </tr>
           <tr>
             <th scope="row">A/C No.:</th>
-            <td>40420100004254</td>
+            <td>{data.acNo}</td>
             <td></td>
           </tr>
           <tr>
             <th scope="row">IFSC:</th>
-            <td>BARB0DAHEAS</td>
+            <td>{data.ifsc}</td>
             <td></td>
           </tr>
         </tbody>
@@ -43,8 +44,7 @@ function Footer() {
 
       <hr className="line-footer" />
       <div>
-        1) Issue cheque /D.D/P.O. in favour of{" "}
-        <strong>"Savan Natwarlal Rathod"</strong>.
+        1) Issue cheque /D.D/P.O. in favour of <strong>"{data.name}"</strong>.
       </div>
       <div>
         2) The Above charges do not include any scrutiny / verification fees.

@@ -1,4 +1,5 @@
 import React from "react";
+import data from "./json/data.json";
 import Logo from "./img/logo.png";
 import Sign from "./img/sign.jpg";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -150,7 +151,7 @@ function Invoice({ invoiceData }) {
         <div className="col">
           <p>
             <strong>PAN No. : </strong>
-            {invoiceData.panNumber}
+            {data.panNumber}
           </p>
         </div>
         <div className="col text-right">
